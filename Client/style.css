@@ -1,0 +1,302 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+#auth-container, #profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #36393f 0%, #2c2f33 100%);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.auth-window {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-box {
+    background: linear-gradient(145deg, #2f3136 0%, #23262b 100%);
+    border: 1px solid rgba(114, 137, 218, 0.3);
+    border-radius: 12px;
+    padding: 50px;
+    text-align: center;
+    max-width: 450px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-box h1 {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.auth-box h2 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.auth-box p {
+    color: #b9bbbe;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+#avatar {
+    border: 4px solid rgba(88, 101, 242, 0.5);
+    box-shadow: 0 8px 24px rgba(88, 101, 242, 0.3);
+    transition: transform 0.3s ease;
+}
+
+#avatar:hover {
+    transform: scale(1.05);
+}
+
+.stats {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    width: 80%;
+    max-width: 800px;
+    margin: 16px 0 24px 0;
+}
+
+.stats > div {
+    padding: 12px 4px;
+    background: rgba(114, 137, 218, 0.1);
+    border-radius: 8px;
+    transition: background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70px;
+}
+
+.stats div[style*="font-weight"] {
+    margin-bottom: 4px;
+}
+
+.stats div[style*="font-size:12px"] {
+    font-size: 10px !important;
+    line-height: 1.2;
+}
+
+.stats > div:hover {
+    background: rgba(114, 137, 218, 0.2);
+}
+
+.stats div[style*="font-weight"] {
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.discord-btn {
+    padding: 12px 16px;
+    background-color: #5865f2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 120px;
+}
+
+.discord-btn:hover {
+    background-color: #4752c4;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(88, 101, 242, 0.4);
+}
+
+.discord-btn:active {
+    background-color: #3c45a5;
+    transform: translateY(0);
+}
+
+#logout {
+    background-color: #f04747 !important;
+}
+
+#logout:hover {
+    background-color: #d83c3c !important;
+    box-shadow: 0 8px 16px rgba(240, 71, 71, 0.4);
+}
+
+#edit-profile {
+    background-color: #7289da !important;
+}
+
+#edit-profile:hover {
+    background-color: #6078ca !important;
+    box-shadow: 0 8px 16px rgba(114, 137, 218, 0.4);
+}
+
+#create-order {
+    background-color: #43b581 !important;
+}
+
+#create-order:hover {
+    background-color: #3ca374 !important;
+    box-shadow: 0 8px 16px rgba(67, 181, 129, 0.4);
+}
+
+.order-card {
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.order-card:hover {
+    transform: translateX(4px);
+    border-color: rgba(88, 101, 242, 0.5) !important;
+}
+
+.order-card button {
+    margin-top: auto;
+}
+
+.order-card button:hover {
+    transform: translateY(-2px);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #2f3136 0%, #23262b 100%);
+    border: 1px solid rgba(114, 137, 218, 0.3);
+    border-radius: 12px;
+    padding: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    animation: slideUp 0.3s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(114, 137, 218, 0.2);
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #b9bbbe;
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-btn:hover {
+    color: #fff;
+}
+
+#create-order-form input,
+#create-order-form textarea {
+    transition: all 0.2s ease;
+}
+
+#create-order-form input:focus,
+#create-order-form textarea:focus {
+    outline: none;
+    border-color: rgba(88, 101, 242, 0.8) !important;
+    box-shadow: 0 0 0 3px rgba(88, 101, 242, 0.1);
+}
+
+.delete-btn {
+    padding: 12px 16px;
+    background-color: #f04747;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+    background-color: #d83c3c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(240, 71, 71, 0.4);
+}
+
+.delete-btn:active {
+    background-color: #c02828;
+    transform: translateY(0);
+}
+
+.order-card.done {
+    filter: grayscale(0.2);
+    border-style: dashed;
+}
+
+.order-card.done:hover {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: translateY(-2px);
+}

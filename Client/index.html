@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poopix</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="auth-container" class="auth-window">
+        <div class="auth-box">
+            <h1>Poopix</h1>
+            <p>Sign in with Discord</p>
+            <button id="discord-login" class="discord-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M20.317 4.37a19.791 19.791 0 00-4.885-1.515.074.074 0 00-.079.037c-.211.375-.444.865-.607 1.255a18.27 18.27 0 00-5.487 0c-.163-.39-.399-.88-.609-1.255a.077.077 0 00-.079-.037A19.736 19.736 0 003.677 4.37a.07.07 0 00-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 00.031.057 19.9 19.9 0 005.993 3.03.078.078 0 00.084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 00-.042-.106 13.107 13.107 0 01-1.872-.892.077.077 0 01-.008-.128 10.2 10.2 0 00.372-.294.075.075 0 01.078-.01c3.928 1.793 8.18 1.793 12.062 0a.075.075 0 01.079.009c.12.098.246.198.373.295a.077.077 0 01-.006.127 12.299 12.299 0 01-1.873.892.076.076 0 00-.041.107c.36.699.772 1.365 1.225 1.994a.076.076 0 00.084.028 19.839 19.839 0 006.002-3.03.077.077 0 00.032-.054c.5-4.467.151-8.343-2.113-12.64a.06.06 0 00-.031-.03zM8.02 15.33c-1.183 0-2.157-.965-2.157-2.156 0-1.193.93-2.157 2.157-2.157 1.226 0 2.157.964 2.157 2.157 0 1.19-.93 2.155-2.157 2.155zm7.975 0c-1.183 0-2.157-.965-2.157-2.156 0-1.193.93-2.157 2.157-2.157 1.226 0 2.157.964 2.157 2.157 0 1.19-.931 2.155-2.157 2.155z" />
+                </svg>
+                Login with Discord
+            </button>
+        </div>
+    </div>
+
+    <div id="profile-container" class="auth-window" style="display: none;">
+        <div class="auth-box"
+            style="width:100%; height:100%; max-width:none; max-height:none; overflow-y:auto; border-radius:0; padding:40px; display:flex; flex-direction:column; align-items:center;">
+            <h1 id="display-name">Poopix Profile</h1>
+            <img id="avatar" src="https://via.placeholder.com/120" alt="Avatar"
+                style="width:120px;height:120px;border-radius:50%;margin:20px auto;display:block;">
+            <h2 id="username">Guest</h2>
+            <p id="email" style="color:#b9bbbe;margin-bottom:12px"></p>
+
+            <div
+                style="display:flex; gap:12px; justify-content:center; margin-bottom:24px; width:80%; max-width:800px;">
+                <button id="create-order" class="discord-btn" style="background:#43b581; flex:1;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Create Order
+                </button>
+                <button id="logout" class="discord-btn" style="background:#f04747; flex:1;">
+                    Logout
+                </button>
+            </div>
+
+            <div id="open-orders-section" style="text-align:left; width:80%; max-width:800px;">
+                <h3 style="color:#fff; font-size:18px; font-weight:600; margin-bottom:16px;">Open Orders</h3>
+                <div id="orders-list" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                    <!-- Just Opened Order Template -->
+                    <!-- <div class="order-card"
+                        style="background:rgba(67, 181, 129, 0.1); border:1px solid rgba(67, 181, 129, 0.3); border-radius:8px; padding:16px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
+                            <div>
+                                <h4 style="color:#fff; font-weight:600; margin-bottom:4px;">Order #001</h4>
+                                <p style="color:#b9bbbe; font-size:12px;">Just opened</p>
+                            </div>
+                            <span
+                                style="background:rgba(67, 181, 129, 0.8); color:#fff; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600;">OPEN</span>
+                        </div>
+                        <p style="color:#b9bbbe; font-size:13px; margin-bottom:12px;">Item: MacBook Pro 16" • Asking:
+                            $1,500</p>
+                        <button class="discord-btn"
+                            style="background:#5865f2; width:100%; font-size:14px; padding:8px;">View Details</button>
+                    </div> -->
+
+                    <!-- In Progress Order Template -->
+                    <!-- <div class="order-card"
+                        style="background:rgba(240, 144, 76, 0.1); border:1px solid rgba(240, 144, 76, 0.3); border-radius:8px; padding:16px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
+                            <div>
+                                <h4 style="color:#fff; font-weight:600; margin-bottom:4px;">Order #002</h4>
+                                <p style="color:#b9bbbe; font-size:12px;">In progress</p>
+                            </div>
+                            <span
+                                style="background:rgba(240, 144, 76, 0.8); color:#fff; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600;">IN
+                                PROGRESS</span>
+                        </div>
+
+                        <p style="color:#b9bbbe; font-size:13px; margin-bottom:12px;">Item: Gaming PC • Current bid:
+                            $2,100</p>
+                        <button class="discord-btn"
+                            style="background:#5865f2; width:100%; font-size:14px; padding:8px;">View Details</button>
+                    </div> -->
+
+                    <!-- On Review Order Template -->
+                    <!-- <div class="order-card"
+                        style="background:rgba(230, 126, 34, 0.1); border:1px solid rgba(230, 126, 34, 0.3); border-radius:8px; padding:16px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
+                            <div>
+                                <h4 style="color:#fff; font-weight:600; margin-bottom:4px;">Order #003</h4>
+                                <p style="color:#b9bbbe; font-size:12px;">On review</p>
+                            </div>
+                            <span
+                                style="background:rgba(230, 126, 34, 0.8); color:#fff; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600;">ON
+                                REVIEW</span>
+                        </div>
+
+                        <p style="color:#b9bbbe; font-size:13px; margin-bottom:12px;">Item: iPhone 14 Pro • Final bid:
+                            $899</p>
+                        <button class="discord-btn"
+                            style="background:#5865f2; width:100%; font-size:14px; padding:8px;">View Details</button>
+                    </div> -->
+
+                    <!-- Denied Order Template -->
+                    <!-- <div class="order-card"
+                        style="background:rgba(244, 67, 54, 0.1); border:1px solid rgba(244, 67, 54, 0.3); border-radius:8px; padding:16px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
+                            <div>
+                                <h4 style="color:#fff; font-weight:600; margin-bottom:4px;">Order #004</h4>
+                                <p style="color:#b9bbbe; font-size:12px;">Denied</p>
+                            </div>
+                            <span
+                                style="background:rgba(244, 67, 54, 0.8); color:#fff; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600;">DENIED</span>
+                        </div>
+
+                        <p style="color:#b9bbbe; font-size:13px; margin-bottom:12px;">Item: Samsung Galaxy S23 • Reason:
+                            Invalid description</p>
+                        <div style="display:flex; gap:8px;">
+                            <button class="discord-btn"
+                                style="background:#5865f2; flex:1; font-size:14px; padding:8px;">Details</button>
+                            <button class="delete-btn"
+                                style="background:#f04747; flex:1; font-size:14px; padding:8px;">Delete</button>
+                        </div>
+                    </div> -->
+
+                    <!-- For Your Consideration Order Template -->
+                    <!-- <div class="order-card"
+                        style="background:rgba(155, 89, 182, 0.1); border:1px solid rgba(155, 89, 182, 0.3); border-radius:8px; padding:16px;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
+                            <div>
+                                <h4 style="color:#fff; font-weight:600; margin-bottom:4px;">Order #005</h4>
+                                <p style="color:#b9bbbe; font-size:12px;">Action required</p>
+                            </div>
+                            <span
+                                style="background:rgba(155, 89, 182, 0.8); color:#fff; padding:4px 8px; border-radius:20px; font-size:10px; font-weight:600; white-space:nowrap;">CONSIDERATION</span>
+                        </div>
+                        <p style="color:#b9bbbe; font-size:13px; margin-bottom:12px;">Item: RTX 4090 • <strong
+                                style="color:#fff;">Proposed Cost: $1,600</strong></p>
+                        <div style="display:flex; gap:8px;">
+                            <button class="discord-btn"
+                                style="background:#43b581; flex:1; font-size:13px; padding:8px;">Accept</button>
+                            <button class="delete-btn"
+                                style="background:#f04747; flex:1; font-size:13px; padding:8px;">Deny</button>
+                        </div>
+                    </div> -->
+
+                    <!-- Done Order Template -->
+                    <!-- <div class="order-card"
+                        style="background:rgba(67, 181, 129, 0.05); border:1px solid rgba(67, 181, 129, 0.2); border-radius:8px; padding:16px; opacity: 0.9;">
+                        <div
+                            style="display:flex; justify-content:space-between; align-items:start; margin-bottom:12px;">
+                            <div>
+                                <h4 style="color:#fff; font-weight:600; margin-bottom:4px; text-decoration: none;">Order
+                                    #006</h4>
+                                <p style="color:#b9bbbe; font-size:12px;">Check your discord dm with bot</p>
+                            </div>
+                            <span
+                                style="background:#43b581; color:#fff; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:600; display: flex; align-items: center; gap: 4px;">
+                                DONE
+                            </span>
+                        </div>
+
+                        <p style="color:#b9bbbe; font-size:13px; margin-bottom:12px;">Item: Sony WH-1000XM5 • <strong
+                                style="color:#43b581;">Fulfilled</strong></p>
+
+                        <div style="display:flex; gap:8px;">
+                            <button class="discord-btn"
+                                style="background:#4f545c; flex:1; font-size:14px; padding:8px;">Archive</button>
+                            <button class="discord-btn"
+                                style="background:#5865f2; flex:1; font-size:14px; padding:8px;">Report</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="create-order-div" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="color:#fff; font-weight:600;">Create New Order</h2>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <form id="create-order-form" style="display:flex; flex-direction:column; gap:16px;">
+                <div>
+                    <label
+                        style="color:#b9bbbe; font-size:12px; font-weight:600; display:block; margin-bottom:6px;">Order
+                        Name</label>
+                    <input type="text" name="name" id="create-name" placeholder="Order name"
+                        style="width:100%; padding:10px; background:#1e2124; border:1px solid rgba(114, 137, 218, 0.3); border-radius:6px; color:#fff; font-size:14px;"
+                        required>
+                </div>
+                <div>
+                    <label
+                        style="color:#b9bbbe; font-size:12px; font-weight:600; display:block; margin-bottom:6px;">Description</label>
+                    <textarea name="description" id="create-description"
+                        placeholder="Describe your order, condition, specifications..." rows="4"
+                        style="width:100%; padding:10px; background:#1e2124; border:1px solid rgba(114, 137, 218, 0.3); border-radius:6px; color:#fff; font-size:14px; resize:vertical;"
+                        required></textarea>
+                </div>
+                <div>
+                    <label
+                        style="color:#b9bbbe; font-size:12px; font-weight:600; display:block; margin-bottom:6px;">Deadline</label>
+                    <input type="datetime-local" id="create-deadline" name="deadline"
+                        style="width:100%; padding:10px; background:#1e2124; border:1px solid rgba(114, 137, 218, 0.3); border-radius:6px; color:#fff; font-size:14px;"
+                        required>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:12px;">
+                    <button type="submit" class="discord-btn" style="background:#43b581; flex:1;">Create Order</button>
+                    <button type="button" id="cancel-order" class="discord-btn"
+                        style="background:#f04747; flex:1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="client.js"></script>
+</body>
+
+</html>

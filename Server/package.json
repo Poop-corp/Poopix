@@ -1,0 +1,33 @@
+{
+  "name": "poopix",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "tsx --env-file=.env server.js",
+    "test": "npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Poop-corp/Poopix.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Poop-corp/Poopix/issues"
+  },
+  "homepage": "https://github.com/Poop-corp/Poopix#readme",
+  "license": "ISC",
+  "author": "Poop",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.2.3",
+    "jsonwebtoken": "^9.0.3",
+    "nodemailer": "^7.0.12"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.10.5",
+    "tsx": "^4.21.0"
+  }
+}
