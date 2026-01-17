@@ -1,3 +1,6 @@
+// Sorry for my English🤞
+// For more detailed comments, I will use a translator.
+
 // DIV //
 const authDiv = document.getElementById("auth-container");
 const profileDiv = document.getElementById("profile-container");
@@ -24,6 +27,8 @@ const profileOrderProgCount = document.getElementById("orders-progress-count");
 // SERVER SIDED ACTIONS //
 
 loginDsButton.addEventListener("click", (event) => {
+    // A simple redirect to the backend. We don't do a fetch here because OAuth2
+    // should start with a direct click on the link to initiate the session.
     window.location.href = "/api/auth/discord/login";
 });
 
@@ -43,14 +48,20 @@ createOrderForm.onsubmit = async () => {
     });
 
     if (res.ok) {
+        // If the server accepts the order, we clear the form and hide the div.
+        // We update the order list so the user can see the result immediately.
         createOrderDiv.style.display = "none"
         createOrderForm.reset()
         await generateOrdersDiv()
     };
 }
 
+// An object mapper for order actions.
+// I think using this pattern instead of a bunch of if/else
+// statements makes the code cleaner and easier to extend.
 const ordersButtonAttActions = {
     "Accept": async function (id) {
+        // We send the patch to change the status.
         const res = await fetch("/api/order", {
             method: "PATCH",
             headers: {
@@ -94,12 +105,18 @@ const ordersButtonAttActions = {
     }
 }
 
+// Event delegation.
+// Instead of attaching a listener to every button in every order,
+// which is bad for memory, we attach a single listener to the parent
+// container and catch the event bubbling.
 ordersListDiv.addEventListener("click", async (event) => {
     event.preventDefault();
 
     const button = event.target.closest("button");
+    // We look for the nearest button if we clicked on the icon inside it
     if (!button) return;
     const type = button.dataset.type;
+    // Get the action type (Accept/Delete, etc.)
     const id = button.dataset.id;
     if (!type || !id || !ordersButtonAttActions[type]) return;
     ordersButtonAttActions[type](id);
@@ -121,7 +138,8 @@ cancelOrderButton.addEventListener("click", (event) => {
 // CLIENT SIDED ACTIONS //
 
 async function generateOrdersDiv() {
-    const res = await fetch("/api/orders"); // getting all orders htmls
+    // getting ready-made HTML from the server
+    const res = await fetch("/api/orders");
 
     if (res.ok) {
         const data = await res.json(); // getting data from responce
@@ -134,6 +152,7 @@ async function generateOrdersDiv() {
 }
 
 async function checkAuth() {
+    // When loading the page, we check whether the session is still alive (JWT in cookies).
     const res = await fetch("/api/auth/me", { method: "POST" }); // fetching data from jwt saved in cookies
     if (res.ok) {
         const result = await res.json(); // getting decodeed data

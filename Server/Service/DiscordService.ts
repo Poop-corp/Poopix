@@ -20,9 +20,11 @@ const client = new Client({
 const DISCORD_BOT_TOKEN = process.env.DISCORD_BOT_TOKEN;
 const DISCORD_CHANNEL_ID = process.env.DISCORD_CHANNEL_ID;
 
-export async function GetUserById(id: string): Promise<User | null> { // function to get user by it's id
+export async function GetUserById(id: string): Promise<User | null> {
     try {
-        return await client.users.fetch(id); // the main line
+        // We fetch directly from the Discord API. If the user isn't in the bot's cache,
+        // the library will automatically make a request to the Discord servers.
+        return await client.users.fetch(id);
     } catch (error) {
         return null;
     }
@@ -36,6 +38,7 @@ export async function SendOrderEmbed(order: Order): Promise<Status> {
 
         const channel = await client.channels.fetch(DISCORD_CHANNEL_ID); // getting channel
 
+        // Checking the channel type is important: we cannot send Embed to a voice channel.
         if (!channel || !channel.isTextBased()) {
             return { status: false, msg: "Invalid channel" }; // returning if channel not found or its not textchannel (maybe voice or else)
         }
@@ -81,6 +84,9 @@ export async function PatchOrderEmbed(orderId: string): Promise<Status> {
         const order = await DataStoreService.GetOrderById(orderId); // getting order by it's id
         if (!order) return { status: false, msg: "Order not found" }; // order not found
 
+        // We need to find the message the bot sent previously.
+        // We fetch the last 100 messages and look for the one with our
+        // ID in the Order ID field.
         const messages = await textChannel.messages.fetch({ limit: 100 }); // fetching last 100 messages to get our order embed
         const targetMessage = messages.find(msg =>
             msg.author.id === client.user?.id &&
@@ -125,6 +131,7 @@ export async function DeleteOrderEmbed(orderId: string): Promise<Status> {
         const order = await DataStoreService.GetOrderById(orderId); // getting order by it's id
         if (!order) return { status: false, msg: "Order not found" }; // order not found
 
+        // same as patch
         const messages = await textChannel.messages.fetch({ limit: 100 }); // fetching last 100 messages to get our order embed
         const targetMessage = messages.find(msg =>
             msg.author.id === client.user?.id &&
@@ -151,6 +158,8 @@ const modals = {
             return interaction.reply({ content: "Not valid number entered.", flags: [MessageFlags.Ephemeral] });
         }
 
+        // We synchronize the price with the database and move
+        // the order to the next status (1)
         await DataStoreService.PatchOrder(orderId, "cost", costNum);
         await DataStoreService.PatchOrder(orderId, "status", 1);
 
@@ -164,21 +173,27 @@ const modals = {
 
 export function LoginBot(): void { // LoginBot function that's turning bot on with provided token
     if (DISCORD_BOT_TOKEN) {
+        // Chief Interaction Listener
         client.on("interactionCreate", async (interaction) => { // connect to interactionCreate's event
             if (interaction.isButton()) {
                 try {
+                    // Parse the customId in the "status_action_id" format.
+                    // This structure allows you to pass data directly in
+                    // the button without storing the state.
                     const [strStatus, action, orderId] = interaction.customId.split("_");
                     const status = Number(strStatus); // making status number from string
                     const statusActions = OrderData.StatusButtonsActions[status as keyof typeof OrderData.StatusButtonsActions]; // getting status button's actions for current status
                     if (!statusActions) return;
                     const actionFunc = (statusActions as any)?.[action]; // getting action function for current action
 
+                    // We call the required processing function
                     if (actionFunc) await actionFunc(interaction, orderId);
                 } catch (err) {
                     // to avoid errors😾
                 }
             }
 
+            // Checking for sending modal windows
             if (interaction.isModalSubmit()) {
                 for (const index in modals) {
                     if (interaction.customId.startsWith(index)) {
